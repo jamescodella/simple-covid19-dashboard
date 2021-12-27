@@ -4,6 +4,7 @@ import pandas as pd
 from pandas.io.sql import DatabaseError
 import numpy as np
 from datetime import date, datetime
+import os
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 # Configure python logging
@@ -41,7 +42,12 @@ def main():
         2. Preprocess data
         3. Save data
     '''
-
+    
+    path = 'data'
+    data_exists = os.path.exists(path)
+    if not data_exists:
+        os.makedirs(path)
+  
     US_data, states_data = fetch_data()
     logging.info("data download completed at {}".format(datetime.now(tz=None)))
 
